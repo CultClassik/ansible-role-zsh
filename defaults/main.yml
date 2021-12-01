@@ -1,6 +1,8 @@
 ---
 
 zsh_user: "{{ ansible_user_id }}"
+zsh_user_group: "{{ zsh_user_group_defaults[ ansible_system ] }}"
+zsh_zprofile_env_vars: []
 
 # .zshrc config
 zsh_hist_stamps: yyyy-mm-dd
@@ -73,7 +75,7 @@ zsh_antigen_bundles_extras: []
 zsh_shared: no
 zsh_change_user_shell: yes
 
-zsh_antigen_theme: "bhilburn/powerlevel9k powerlevel9k"
+zsh_antigen_theme: "romkatv/powerlevel10k"
 
 zsh_hotkeys:
   # home & end keys work
