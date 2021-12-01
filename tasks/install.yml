@@ -15,6 +15,7 @@
   when: ansible_os_family != 'Darwin'
 
 - name: Install dependencies (brew)
+  become: no
   homebrew:
     name:
       - zsh
