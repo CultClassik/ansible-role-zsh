@@ -81,7 +81,7 @@
     dest: "{{ zsh_fzf_path_absolute }}"
     remote_src: yes
     creates: "{{ zsh_fzf_path_absolute }}/fzf"
-  when: zsh_register_fzf_command.rc == 1
+  when: zsh_register_fzf_command.rc == 1 or ansible_os_family != 'Darwin'
 
 - name: Set directory permissions
   file:
@@ -90,3 +90,4 @@
     group: "{{ zsh_user_group }}"
     recurse: yes
   changed_when: false
+  when: ansible_os_family != 'Darwin'
