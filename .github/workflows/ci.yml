@@ -1,0 +1,24 @@
+name: Ansible CI
+
+on:
+  workflow_dispatch: # leave this here so other repos can run manually
+  push:
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  default:
+    uses: Diehlabs/shared-workflows/.github/workflows/ansible-ci.yml@v0.2.3
+
+  user:
+    uses: Diehlabs/shared-workflows/.github/workflows/ansible-ci.yml@v0.2.3
+    with:
+      scenario: user
+
+  shared:
+    uses: Diehlabs/shared-workflows/.github/workflows/ansible-ci.yml@v0.2.3
+    with:
+      scenario: shared
