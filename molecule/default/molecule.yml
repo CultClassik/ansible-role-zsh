@@ -6,20 +6,17 @@ platforms:
     image: geerlingguy/docker-debian12-ansible
     pre_build_image: true
 
-  - name: ansible-role-zsh-1604
-    image: geerlingguy/docker-ubuntu1604-ansible
+  - name: ansible-role-zsh-ubuntu-2204
+    image: geerlingguy/docker-ubuntu2204-ansible
     pre_build_image: true
 
-  - name: ansible-role-zsh-1804
-    image: geerlingguy/docker-ubuntu1804-ansible
+  - name: ansible-role-zsh-ubuntu-2404
+    image: geerlingguy/docker-ubuntu2404-ansible
     pre_build_image: true
 
-  - name: ansible-role-zsh-2004
-    image: geerlingguy/docker-ubuntu2004-ansible
+  - name: ansible-role-zsh-rockylinux-9
+    image: geerlingguy/docker-rockylinux9-ansible
     pre_build_image: true
-
-  - name: ansible-role-zsh-centos-8
-    image: geerlingguy/docker-centos8-ansible
 
 #driver:
 #  name: vagrant
@@ -34,6 +31,14 @@ platforms:
 
 provisioner:
   name: ansible
+  env:
+    # Molecule stopped symlinking this checkout under its own directory
+    # name (molecule/molecule#3806-adjacent change), which is what let
+    # converge.yml resolve `roles: - ansible-role-zsh` implicitly.
+    # ../../.. from here (molecule/default/) is this repo's parent
+    # directory, so Ansible can resolve the checkout itself as a role
+    # named after its directory again.
+    ANSIBLE_ROLES_PATH: ../../..
   playbooks:
     prepare: ../resources/prepare.yml
     converge: ../resources/converge.yml
